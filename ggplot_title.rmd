@@ -1,0 +1,43 @@
+---
+title: "Geom_title_temp"
+author: "Philip"
+date: "September 16, 2019"
+output: html_document
+---
+This R markdown demonstrate how to use geom_tile to map probe data by locational/span and to color those spans by accessablity. 
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+library(cowplot)
+library(reshape2)
+
+read.csv("mock_data_ggtile.csv", header = T) -> mock_data
+str(mock_data)
+```
+This mockdata has three varaibles, the Acess.Score the ProbeID and the CDS.Position 
+
+```{r cars}
+
+
+ggplot(mock_data, aes(Probe.ID, CDS.Position)) + 
+  theme_cowplot() + ## makes it pretty
+  coord_flip()+
+  geom_tile(aes(fill = Acess.Score)) +
+  scale_fill_continuous(type = "viridis") +
+  theme(axis.text.y = element_text(size = 10),
+        axis.text.x = element_text(size = 10)) +
+  ggtitle("RNA Accessibility by Probe")
+
+
+```
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
